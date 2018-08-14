@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  - Guidance Magento Team <magento@guidance.com>
+  - Copyright (c) 2017 Guidance Solutions (http://www.guidance.com)
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Guidance\GooglePLA\Model\Feed">
+        <arguments>
+            <argument name="columnRenderers" xsi:type="array">
+                <item name="id" xsi:type="object">idRenderer</item>
+                <item name="configurable product id" xsi:type="object">configurableProdRenderer</item>
+                <item name="title" xsi:type="object">titleRenderer</item>
+                <item name="description" xsi:type="object">descriptionRenderer</item>
+                <item name="google product category" xsi:type="object">googleCategoryRenderer</item>
+                <item name="product type" xsi:type="object">productTypeRenderer</item>
+                <item name="link" xsi:type="object">linkRenderer</item>
+                <item name="image link" xsi:type="object">imageLinkRenderer</item>
+                <item name="additional image link" xsi:type="object">additionalImageLinkRenderer</item>
+                <item name="condition" xsi:type="object">conditionRenderer</item>
+                <item name="availability" xsi:type="object">Guidance\GooglePLA\Model\Feed\ColumnRenderer\Availability</item>
+                <item name="price" xsi:type="object">Guidance\GooglePLA\Model\Feed\ColumnRenderer\Price</item>
+                <item name="sale price" xsi:type="object">Guidance\GooglePLA\Model\Feed\ColumnRenderer\SalePrice</item>
+                <item name="brand" xsi:type="object">brandRenderer</item>
+                <item name="mpn" xsi:type="object">mpnRenderer</item>
+                <item name="upc" xsi:type="object">upcRenderer</item>
+                <item name="gender" xsi:type="object">genderRender</item>
+                <item name="age group" xsi:type="object">ageRenderer</item>
+                <item name="color" xsi:type="object">colorRenderer</item>
+                <item name="color_general" xsi:type="object">colorGeneralRenderer</item>
+                <item name="size" xsi:type="object">sizeRenderer</item>
+                <item name="size type" xsi:type="object">sizeTypeRenderer</item>
+                <item name="size system" xsi:type="object">sizeSystemRenderer</item>
+                <item name="item group id" xsi:type="object">itemGroupRenderer</item>
+                <item name="shipping weight" xsi:type="object">Guidance\GooglePLA\Model\Feed\ColumnRenderer\Weight</item>
+                <item name="custom label 0" xsi:type="object">customLabelZeroRenderer</item>
+                <item name="custom label 1" xsi:type="object">customLabelOneRenderer</item>
+                <item name="custom label 2" xsi:type="object">customLabelTwoRenderer</item>
+                <item name="custom label 3" xsi:type="object">customLabelThreeRenderer</item>
+                <item name="custom label 4" xsi:type="object">customLabelFourRenderer</item>
+                <item name="expiration date" xsi:type="object">expirationDateRenderer</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Guidance\GooglePLA\Cron\GenerateFeed">
+        <arguments>
+            <argument name="logger" xsi:type="object">googlePlaLogger</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\Console\CommandListInterface">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="google:pla:generate" xsi:type="object">Guidance\GooglePLA\Console\Command\Generate</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Guidance\GooglePLA\Model\Generator">
+        <arguments>
+            <argument name="logger" xsi:type="object">googlePlaLogger</argument>
+        </arguments>
+    </type>
+    <virtualType name="googlePlaLogger" type="Magento\Framework\Logger\Monolog">
+        <arguments>
+            <argument name="name" xsi:type="string">main</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="report" xsi:type="object">Guidance\GooglePLA\Model\LoggerHandler</item>
+                <item name="debug" xsi:type="object">Guidance\GooglePLA\Model\LoggerHandler</item>
+                <item name="info" xsi:type="object">Guidance\GooglePLA\Model\LoggerHandler</item>
+                <item name="error" xsi:type="object">Guidance\GooglePLA\Model\LoggerHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="idRenderer" type="Guidance\GooglePLA\Model\Feed\ColumnRenderer\Attribute">
+        <arguments>
+            <argument name="attribute" xsi:type="string">id</argument>
+            <argument name="limit" xsi:type="string">50</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="titleRenderer" type="Guidance\GooglePLA\Model\Feed\ColumnRenderer\Title">
+        <arguments>
+            <argument name="limit" xsi:type="string">150</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="descriptionRenderer" type="Guidance\GooglePLA\Model\Feed\ColumnRenderer\Description">
+        <arguments>
+            <argument name="limit" xsi:type="string">5000</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="googleCategoryRenderer" type="Guidance\GooglePLA\Model\Feed\ColumnRenderer\GoogleCategory">
+        <arguments>
+            <argument name="default" xsi:type="string">Apparel &amp; Accessories</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="productTypeRenderer" type="Guidance\GooglePLA\Model\Feed\ColumnRenderer\ProductType">
+        <arguments>
+            <argument name="limit" xsi:type="string">750</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="linkRenderer" type="Guidance\GooglePLA\Model\Feed\ColumnRenderer\Link">
+        <arguments>
+            <argument name="limit" xsi:type="string">2000</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="imageLinkRenderer" type="Guidance\GooglePLA\Model\Feed\ColumnRenderer\ImageLink">
+        <arguments>
+            <argument name="limit" xsi:type="string">2000</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="additionalImageLinkRenderer" type="Guidance\GooglePLA\Model\Feed\ColumnRenderer\AdditionalImageLink">
+        <arguments>
+            <argument name="logger" xsi:type="object">googlePlaLogger</argument>
+            <argument name="limit" xsi:type="string">2000</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="conditionRenderer" type="Guidance\GooglePLA\Model\Feed\ColumnRenderer\Base">
+        <arguments>
+            <argument name="default" xsi:type="string">new</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="brandRenderer" type="Guidance\GooglePLA\Model\Feed\ColumnRenderer\Base">
+        <arguments>
+            <argument name="default" xsi:type="string">Johnny Was</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="mpnRenderer" type="Guidance\GooglePLA\Model\Feed\ColumnRenderer\Attribute">
+        <arguments>
+            <argument name="attribute" xsi:type="string">sku</argument>
+            <argument name="limit" xsi:type="string">50</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="upcRenderer" type="Guidance\GooglePLA\Model\Feed\ColumnRenderer\Attribute">
+        <arguments>
+            <argument name="attribute" xsi:type="string">upc</argument>
+            <argument name="limit" xsi:type="string">50</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="genderRender" type="Guidance\GooglePLA\Model\Feed\ColumnRenderer\Base">
+        <arguments>
+            <argument name="default" xsi:type="string">female</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="ageRenderer" type="Guidance\GooglePLA\Model\Feed\ColumnRenderer\Base">
+        <arguments>
+            <argument name="default" xsi:type="string">adult</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="colorRenderer" type="Guidance\GooglePLA\Model\Feed\ColumnRenderer\AttributeOptionNormalized">
+        <arguments>
+            <argument name="attribute" xsi:type="string">color</argument>
+            <argument name="limit" xsi:type="string">100</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="colorGeneralRenderer" type="Guidance\GooglePLA\Model\Feed\ColumnRenderer\AttributeOptionNormalized">
+        <arguments>
+            <argument name="attribute" xsi:type="string">color_general</argument>
+            <argument name="limit" xsi:type="string">100</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="sizeRenderer" type="Guidance\GooglePLA\Model\Feed\ColumnRenderer\Size">
+        <arguments>
+            <argument name="limit" xsi:type="string">100</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="sizeTypeRenderer" type="Guidance\GooglePLA\Model\Feed\ColumnRenderer\Base">
+        <arguments>
+            <argument name="default" xsi:type="string">regular</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="sizeSystemRenderer" type="Guidance\GooglePLA\Model\Feed\ColumnRenderer\Base">
+        <arguments>
+            <argument name="default" xsi:type="string">US</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="itemGroupRenderer" type="Guidance\GooglePLA\Model\Feed\ColumnRenderer\ParentSku">
+        <arguments>
+            <argument name="limit" xsi:type="string">50</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="configurableProdRenderer" type="Guidance\GooglePLA\Model\Feed\ColumnRenderer\ParentId">
+        <arguments>
+            <argument name="limit" xsi:type="string">50</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="customLabelZeroRenderer" type="Guidance\GooglePLA\Model\Feed\ColumnRenderer\Attribute">
+        <arguments>
+            <argument name="logger" xsi:type="object">googlePlaLogger</argument>
+            <argument name="attribute" xsi:type="string">google_custom_label_0</argument>
+            <argument name="limit" xsi:type="string">100</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="customLabelOneRenderer" type="Guidance\GooglePLA\Model\Feed\ColumnRenderer\Attribute">
+        <arguments>
+            <argument name="attribute" xsi:type="string">google_custom_label_1</argument>
+            <argument name="limit" xsi:type="string">100</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="customLabelTwoRenderer" type="Guidance\GooglePLA\Model\Feed\ColumnRenderer\Attribute">
+        <arguments>
+            <argument name="logger" xsi:type="object">googlePlaLogger</argument>
+            <argument name="attribute" xsi:type="string">google_custom_label_2</argument>
+            <argument name="limit" xsi:type="string">100</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="customLabelThreeRenderer" type="Guidance\GooglePLA\Model\Feed\ColumnRenderer\Attribute">
+        <arguments>
+            <argument name="attribute" xsi:type="string">google_custom_label_3</argument>
+            <argument name="limit" xsi:type="string">100</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="customLabelFourRenderer" type="Guidance\GooglePLA\Model\Feed\ColumnRenderer\Attribute">
+        <arguments>
+            <argument name="attribute" xsi:type="string">google_custom_label_4</argument>
+            <argument name="limit" xsi:type="string">100</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="expirationDateRenderer" type="Guidance\GooglePLA\Model\Feed\ColumnRenderer\Base">
+        <arguments>
+            <argument name="default" xsi:type="string">2015-10-21</argument>
+        </arguments>
+    </virtualType>
+</config>

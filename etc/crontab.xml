@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  - Guidance Magento Team <magento@guidance.com>
+  - Copyright (c) 2017 Guidance Solutions (http://www.guidance.com)
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <job name="googlepla_feed_generation" instance="Guidance\GooglePLA\Model\ScheduledGenerator" method="generateBySchedule">
+            <schedule>30 5 * * *</schedule>
+        </job>
+    </group>
+</config>

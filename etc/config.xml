@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  - Guidance Magento Team <magento@guidance.com>
+  - Copyright (c) 2017 Guidance Solutions (http://www.guidance.com)
+  -->
+
+<config>
+    <default>
+        <googlepla>
+            <settings>
+                <feed_filename>{media}/google_pla_feed.txt</feed_filename>
+            </settings>
+        </googlepla>
+    </default>
+</config>

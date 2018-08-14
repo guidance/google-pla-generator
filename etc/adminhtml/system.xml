@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  - Guidance Magento Team <magento@guidance.com>
+  - Copyright (c) 2017 Guidance Solutions (http://www.guidance.com)
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="googlepla" translate="label" type="text" sortOrder="1200" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Google PLA</label>
+            <tab>catalog</tab>
+            <resource>Guidance_GooglePLA::settings</resource>
+
+            <group id="settings" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Settings</label>
+
+                <field id="feed_filename" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Feed File Name</label>
+                    <comment>{media}, {pub}, {base} placeholders can be used.</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
